@@ -8,7 +8,7 @@ public class JdbcTest {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         String user = "root";
-        String password = "Abcd13460761926@";   // 改成你自己的
+        String password = "Abcd13460761926@";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              Statement stmt = conn.createStatement()) {
