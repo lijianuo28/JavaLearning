@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "src/main/java/com"
+        "chapter05-jdbc-mybatis/src/main/java"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
