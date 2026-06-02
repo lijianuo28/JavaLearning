@@ -1,0 +1,4 @@
+INFO 2026-06-02 09:57:45,033 com.example.ch1.Ch1Application.logStarting 54:Starting Ch1Application using Java 17.0.19 with PID 2583 (/home/yingxinli/JavaLearning/ch1/target/classes started by yingxinli in /home/yingxinli/JavaLearning/ch1)
+DEBUG 2026-06-02 09:57:45,035 com.example.ch1.Ch1Application.logStarting 55:Running with Spring Boot v4.0.6, Spring v7.0.7
+INFO 2026-06-02 09:57:45,037 com.example.ch1.Ch1Application.logStartupProfileInfo 652:No active profile set, falling back to 1 default profile: "default"
+INFO 2026-06-02 09:57:46,229 com.example.ch1.Ch1Application.logStarted 60:Started Ch1Application in 1.656 seconds (process running for 2.007)
