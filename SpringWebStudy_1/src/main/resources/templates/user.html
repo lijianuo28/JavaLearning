@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">默认标题</title>
+</head>
+<body>
+<h1 th:text="${title}"></h1>
+<ul>
+    <li th:each="name : ${userList}" th:text="${name}"></li>
+</ul>
+</body>
+</html>
