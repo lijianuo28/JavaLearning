@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:D="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传下载测试</title>
+</head>
+<body>
+<h2>文件上传</h2>
+<form action="/file/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required/>
+    <button type="submit">上传</button>
+</form>
+
+<h2>文件下载</h2>
+<p>假设你已上传了文件 test.jpg，点击下方链接下载（请替换实际文件名）：</p>
+<ul>
+    <li><a href="home/yingxinli/cpp_project/p">下载 p</a></li>
+    <li><a href="/file/download/example.txt">下载 example.txt</a></li>
+</ul>
+<p>也可以直接在地址栏输入: <code>http://localhost:8080/file/download/你的文件名</code></p>
+</body>
+</html>
