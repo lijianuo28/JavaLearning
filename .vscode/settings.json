@@ -2,5 +2,6 @@
     "java.project.sourcePaths": [
         "chapter05-jdbc-mybatis/src/main/java"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "disabled"
 }
