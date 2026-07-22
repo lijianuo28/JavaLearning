@@ -32,6 +32,14 @@
         order by s.create_time desc
     </select>
 
+    <select id="getActiveSetmealIds" resultType="java.lang.Long">
+        select id from setmeal where id in
+        <foreach collection="setmealIds" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        and status = 1
+    </select>
+
     <update id="update">
         update setmeal
         <set>

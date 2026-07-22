@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface SetmealMapper {
 
@@ -57,4 +59,11 @@ public interface SetmealMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    /**
+     * 查询在售套餐id
+     * @param setmealIds
+     * @return
+     */
+    List<Long> getActiveSetmealIds(List<Long> setmealIds);
 }
