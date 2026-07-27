@@ -333,7 +333,7 @@ public class OrderServiceImpl implements OrderService {
         Orders ordersDB = orderMapper.getById(ordersRejectionDTO.getId());
 
         //判断订单状态是否为2（待接单）
-        if(ordersDB != null && !ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)){
+        if(ordersDB == null || !ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)){
             throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
         }
 
@@ -354,6 +354,64 @@ public class OrderServiceImpl implements OrderService {
         orders.setStatus(Orders.CANCELLED);
         orders.setRejectionReason(ordersRejectionDTO.getRejectionReason());
         orders.setCancelTime(LocalDateTime.now());
+
+        orderMapper.update(orders);
+    }
+
+    /**
+     * 派送订单
+     * @param id
+     */
+    public void delivery(Long id) {
+        Orders orders = orderMapper.getById(id);
+
+        if(orders == null || !orders.getStatus().equals(Orders.CONFIRMED)){
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Orders ordersDB = new Orders();
+        ordersDB.setId(id);
+        ordersDB.setStatus(Orders.DELIVERY_IN_PROGRESS);
+
+        orderMapper.update(ordersDB);
+    }
+
+    /**
+     * 完成订单
+     * @param id
+     */
+    public void complete(Long id) {
+        Orders orders = orderMapper.getById(id);
+
+        if(orders == null || !orders.getStatus().equals(Orders.DELIVERY_IN_PROGRESS)){
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Orders ordersDB = new Orders();
+        ordersDB.setId(id);
+        ordersDB.setStatus(Orders.COMPLETED);
+        ordersDB.setDeliveryTime(LocalDateTime.now());
+
+        orderMapper.update(ordersDB);
+    }
+
+    /**
+     * 商家取消订单
+     * @param ordersCancelDTO
+     */
+    public void Cancel(OrdersCancelDTO ordersCancelDTO) {
+        //在已支付之后的状态，取消订单后都需要退款，目前暂不实现
+        Orders ordersDB = orderMapper.getById(ordersCancelDTO.getId());
+
+        if(ordersDB == null){
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+
+        Orders orders = new Orders();
+        orders.setId(ordersCancelDTO.getId());
+        orders.setCancelReason(ordersCancelDTO.getCancelReason());
+        orders.setCancelTime(LocalDateTime.now());
+        orders.setStatus(Orders.CANCELLED);
 
         orderMapper.update(orders);
     }
