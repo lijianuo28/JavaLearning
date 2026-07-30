@@ -9,6 +9,7 @@ import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
+import com.sky.dto.PasswordEditDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
@@ -88,7 +89,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         //employee.setUpdateTime(LocalDateTime.now());
 
         //设置挡墙记录创建人id和修改人id
-        //TODO 后期需要修改为当前登录用户的id
         //employee.setCreateUser(BaseContext.getCurrentId());
         //employee.setUpdateUser(BaseContext.getCurrentId());
 
@@ -150,5 +150,37 @@ public class EmployeeServiceImpl implements EmployeeService {
         //employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.update(employee);
+    }
+
+    /**
+     * 修改员工登录密码
+     * @param passwordEditDTO
+     */
+    public void editPassword(PasswordEditDTO passwordEditDTO) {
+        Long empId = BaseContext.getCurrentId();
+        String oldPassword = passwordEditDTO.getOldPassword();
+        String newPassword = passwordEditDTO.getNewPassword();
+
+        Employee employee = employeeMapper.getById(empId);
+
+        if (employee == null) {
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        //密码比对
+        //对前端传来的明文密码进行m5加密处理
+        oldPassword = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        if(!oldPassword.equals(employee.getPassword())){
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+
+        newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        Employee employee1 = new Employee();
+        employee1.setId(empId);
+        employee1.setPassword(newPassword);
+        employee1.setUpdateUser(empId);
+        employee1.setUpdateTime(LocalDateTime.now());
+
+        employeeMapper.update(employee1);
     }
 }
