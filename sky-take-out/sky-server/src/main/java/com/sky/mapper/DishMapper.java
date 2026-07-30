@@ -87,4 +87,12 @@ public interface DishMapper {
      * @return
      */
     Integer countByMap(Map map);
+
+    /**
+     * 根据菜品状态查询菜品
+     * @param status
+     * @return
+     */
+    @Select("select * from dish where status = #{status}")
+    List<Dish> getByStatus(Integer status);
 }
