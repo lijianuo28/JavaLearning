@@ -86,4 +86,12 @@ public interface OrderMapper {
      * @return
      */
     List<GoodsSalesDTO> getSalesTop10(LocalDateTime begin, LocalDateTime end);
+
+    /**
+     * 获取当前用户最新订单
+     * @param userId
+     * @return
+     */
+    @Select("select * from orders where user_id = #{userId} and status in(2, 3, 4) order by order_time desc")
+    List<Orders> getActiveOrder(Long userId);
 }

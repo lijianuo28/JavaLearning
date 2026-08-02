@@ -145,7 +145,7 @@ public class EmployeeController {
     }
 
     /**
-     * 修改代码
+     * 修改密码
      * @param passwordEditDTO
      * @return
      */
